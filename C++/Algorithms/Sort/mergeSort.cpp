@@ -1,6 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+// Time Complexity of the Merge Sort Algorithm is O(NlogN)
+
 const int N = 1e5 + 7;
 int arr[N];
 

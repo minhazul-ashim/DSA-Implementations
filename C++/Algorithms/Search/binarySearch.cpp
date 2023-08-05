@@ -1,6 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+// Time Complexity of the Binary Search Algorithm is O(logN)
+
 const int N = 1e5 + 7;
 int arr[N];
 
