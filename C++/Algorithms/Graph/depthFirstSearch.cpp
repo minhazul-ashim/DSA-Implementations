@@ -48,6 +48,9 @@ int main () {
     //     }
     //     outputFile << endl;
     // }
+
+    
+    // run dfs for any node;
     dfs(1);
     return 0;
 }
