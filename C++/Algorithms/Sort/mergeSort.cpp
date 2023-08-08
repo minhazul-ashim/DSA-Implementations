@@ -6,7 +6,7 @@ using namespace std;
 const int N = 1e5 + 7;
 int arr[N];
 
-void merge(int l, int mid, int r) {
+void merge(int l, int mid, int r) { 
     int laSize = mid - l + 1;
     int raSize = r - (mid + 1) + 1;
 
