@@ -5,52 +5,40 @@ const int N = 1e5 + 5;
 vector<int> adj[N];
 bool visited[N];
 
+void init_code() {
+    #ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+    #endif
+}
+
 void dfs(int u) {
-    // section 1
-    // actions just after entering a node;
+    // Complexity of this part is O(n+e);
     visited[u] = true;
     cout << "Visiting Node " << u << endl;
     for(int v : adj[u]) {
-        // section 2;
-        //  actions before entering a new child or neighbour;
         if(visited[v]) {
             continue;
         }
         dfs(v);
-        // section 3;
-        // actions after exiting the child or neighbour;
     }
-    // section 4;
-    // actions before exiting node u;
 }
 
 int main () {
-    fstream inputFile;
-    fstream outputFile;
-    inputFile.open("input.txt", ios::in);
-    outputFile.open("output.txt", ios::out);
-    if(!inputFile) {
-        cout << "No Input File Found"<<endl;
-        return 0;
-    }
+    init_code();
     int n, e;
-    inputFile >> n >> e;
+    cin >> n >> e;
+    // Complexity of this part is O(e);
     for (int i = 0; i <= e; i++) {
         int u, v;
-        inputFile >> u >> v;
+        cin >> u >> v;
         adj[u].push_back(v);
         adj[v].push_back(u);
     }
-    // for (int i = 1; i <= n; i++) {
-    //     outputFile << "List "<< i << " : ";
-    //     for(int x : adj[i]) {
-    //         outputFile << x << " ";
-    //     }
-    //     outputFile << endl;
-    // }
-
-    
+    // Complexity of this part is O(n+e)
     // run dfs for any node;
     dfs(1);
+
+    // Total Complexity of DFS should be O(n+e);
     return 0;
 }
