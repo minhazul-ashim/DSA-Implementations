@@ -10,12 +10,14 @@ void init_code() {
 
 const int N = 1e5 + 5;
 int parent[N];
-int parentLevel[N];
+int parentLevel[N]; // For Union by Rank or Level;
+int parentSize[N];  // For Union by Size;
 
 void set_dsu(int n) {
     for (int i = 1; i <= n; i++) {
         parent[i] = -1;
         parentLevel[i] = 0;
+        parentSize[i]= 1;
     }
 }
 
@@ -27,17 +29,35 @@ int dsu_find(int node) {
 }
 
 // Union by Size;
+// Complexity is O(alpha(N)); Near to a constant value.
 void unionBySize(int a, int b) {
+    int leaderA = dsu_find(a);
+    int leaderB = dsu_find(b);
+
+    if(leaderA != leaderB) {
+        if(parentSize[leaderA] > parentSize[leaderB]) {
+            parent[leaderB] = leaderA;
+            parentSize[leaderA]+= parentSize[leaderB];
+        } else {
+            parent[leaderA] = leaderB;
+            parentSize[leaderB]+= parentSize[leaderA];
+        }
+    }
+}
+
+// Union by Rank / Level;
+// Complexity is O(alpha(N)); Near to a constant value.
+void unionByRank(int a, int b) {
     int leaderA = dsu_find(a);
     int leaderB = dsu_find(b);
 
     if(leaderA != leaderB) {
         if(parentLevel[leaderA] > parentLevel[leaderB]) {
             parent[leaderB] = leaderA;
-            // parentLevel[leaderA]++;
+            parentLevel[leaderA]++;
         } else if(parentLevel[leaderB] > parentLevel[leaderA]) {
             parent[leaderA] = leaderB;
-            // parentLevel[leaderB]++;
+            parentLevel[leaderB]++;
         } else {
             parent[leaderB] = leaderA;
             parentLevel[leaderA]++;
@@ -45,12 +65,8 @@ void unionBySize(int a, int b) {
     }
 }
 
-// Union by Rank / Level;
-void unionByRank(int a, int b) {
-
-}
-
 // Basic Union Function for joining.
+// Complexity is O(N)
 void dsu_union(int a, int b) {
     int leaderA = dsu_find(a);
     int leaderB = dsu_find(b);
@@ -71,6 +87,6 @@ int main () {
         unionBySize(a, b);
     }
 
-    cout << dsu_find(1);
+    cout << dsu_find(2);
     return 0;
 }
